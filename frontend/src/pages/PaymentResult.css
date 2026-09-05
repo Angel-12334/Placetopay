@@ -1,0 +1,49 @@
+.result-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  background: #f5f5f5;
+}
+
+.result-card {
+  width: 600px;
+  max-width: 100%;
+  padding: 35px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.result-card h1 {
+  margin-top: 0;
+}
+
+.result-card h2 {
+  margin-top: 25px;
+}
+
+.result-card p {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.result-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.result-buttons button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 6px;
+  background: #ff7a35;
+  color: white;
+  cursor: pointer;
+}
+
+.result-buttons button:hover {
+  opacity: 0.9;
+}
