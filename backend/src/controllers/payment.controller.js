@@ -7,6 +7,8 @@ async function createPayment(req, res) {
   try {
     const { reference, description, amount } = req.body;
 
+    // El frontend envía únicamente los datos básicos de la compra.
+    // Aquí se construye la estructura que requiere Placetopay.
     const paymentData = {
       payment: {
         reference,
@@ -16,8 +18,8 @@ async function createPayment(req, res) {
           total: amount,
         },
       },
-      expiration: new Date(Date.now() + 10 * 60 * 1000).toISOString(),
-      returnUrl: "http://localhost:5173/payment/result",
+      expiration: new Date(Date.now() + 10 * 60 * 1000).toISOString(), // La sesión tendrá una duración limitada para completar el pago.
+      returnUrl: "http://localhost:5173/payment/result", // Placetopay devuelve al usuario a esta URL cuando termina el flujo de Checkout.
       ipAddress: req.ip,
       userAgent: req.get("User-Agent"),
     };
@@ -39,6 +41,7 @@ async function createPayment(req, res) {
 
 async function getPayment(req, res) {
   try {
+    // El requestId identifica la sesión que se quiere consultar.
     const { requestId } = req.params;
 
     const response = await getPaymentSession(requestId);

@@ -8,6 +8,8 @@ function PaymentResult() {
   useEffect(() => {
     async function checkPayment() {
       const requestId = localStorage.getItem("requestId");
+      // El requestId guardado antes de salir hacia Placetopay
+      // permite identificar qué sesión debemos consultar.
 
       if (!requestId) {
         setLoading(false);
@@ -79,6 +81,7 @@ function PaymentResult() {
     window.location.href = "/";
   }
 
+  // Si la operación está pendiente reutilizamos el processUrl existente en vez de crear una nueva sesión.
   function returnToPlacetopay() {
     const processUrl = localStorage.getItem("processUrl");
 

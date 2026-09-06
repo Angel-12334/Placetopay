@@ -4,8 +4,9 @@ import "./App.css";
 
 function App() {
   const isPaymentResult =
-    window.location.pathname === "/payment/result";
+    window.location.pathname === "/payment/result"; // esto esta en frontend/src/pages/PaymentResult.jsx
 
+  // Se utiliza una página diferente cuando Placetopay devuelve al usuario al comercio. 
   if (isPaymentResult) {
     return <PaymentResult />;
   }
@@ -48,6 +49,8 @@ function App() {
           headers: {
             "Content-Type": "application/json",
           },
+          // El frontend envía únicamente la información necesaria de la compra. La estructura de Placetopay
+          // se construye posteriormente en el backend.
           body: JSON.stringify({
             reference: `ORDER-${Date.now()}`,
             description: "Compra tienda de prueba",
@@ -63,17 +66,20 @@ function App() {
           data.error || "Error al crear el pago"
         );
       }
-
+      
+      // requestId permite consultar posteriormente la misma sesión cuando el usuario vuelva del Checkout.
       localStorage.setItem(
         "requestId",
         data.requestId
       );
 
+      // processUrl se conserva para poder regresar a la misma sesión si el pago permanece pendiente.
       localStorage.setItem(
         "processUrl",
         data.processUrl
       );
 
+      // El usuario abandona temporalmente la tienda y continúa el proceso en el Checkout de Placetopay.
       window.location.href = data.processUrl;
     } catch (error) {
       console.error("Error:", error);

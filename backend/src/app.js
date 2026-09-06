@@ -6,6 +6,7 @@ const paymentRoutes = require("./routes/payment.routes");
 
 const app = express();
 
+// Permite las peticiones realizadas desde el frontend que se ejecuta en un puerto diferente.
 app.use(cors());
 app.use(express.json());
 
@@ -16,6 +17,7 @@ app.get("/api/health", (req, res) => {
   });
 });
 
+// Todas las rutas de pago quedan bajo el prefijo /api.
 app.use("/api", paymentRoutes);
 
 const PORT = 3000;
